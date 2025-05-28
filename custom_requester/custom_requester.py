@@ -9,7 +9,6 @@ class CustomRequester:
 
     def __init__(self, session):
         self.logger = logging.getLogger(__name__)
-        self.session = session
         self.base_url = BASE_URL
 
 
