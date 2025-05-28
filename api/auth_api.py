@@ -3,9 +3,9 @@ from custom_requester.custom_requester import CustomRequester
 
 
 class AuthAPI(CustomRequester):
-    def __init__(self):
+    def __init__(self, session):
         super().__init__(session)
-        self.session = session()
+        self.session = session
         self.auth_and_get_csfr()
 
 

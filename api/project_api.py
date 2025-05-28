@@ -4,7 +4,7 @@ from custom_requester.custom_requester import CustomRequester
 
 class ProjectAPI(CustomRequester):
     def __init__(self, session):
-        super().__init__()
+        super().__init__(session)
         self.session = session
 
 
