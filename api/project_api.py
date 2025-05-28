@@ -1,5 +1,4 @@
 from http import HTTPStatus
-
 from custom_requester.custom_requester import CustomRequester
 
 
