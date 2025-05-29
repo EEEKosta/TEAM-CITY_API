@@ -1,4 +1,5 @@
 from utils.data_generator import DataGenerator
+from enums.roles import Roles
 
 
 class UserData:
