@@ -8,17 +8,6 @@ from resources.user_creds import SuperAdminCreds
 
 
 @pytest.fixture
-def session():
-    http_session = requests.Session()
-    yield http_session
-    http_session.close()
-
-
-@pytest.fixture
-def api_manager(session):
-    return ApiManager(session)
-
-@pytest.fixture
 def user_session():
     user_pool = []
 
