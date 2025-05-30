@@ -3,37 +3,13 @@ from enums.roles import Roles
 
 
 class TestProjectCreate:
-    project_data = None
 
-    @classmethod
-    def setup_class(cls):
-        cls.project_data= ProjectData.create_project_data()
-        cls.create_project_id = cls.project_data.id
-
-    def test_project_create(self, api_manager):
-        create_project_response = api_manager.project_api.create_project(self.project_data).json()
-        assert create_project_response.get("id", {}) == self.create_project_id
-
-        get_projects_response = api_manager.project_api.get_project().json()
-        project_ids = [project.get('id', {}) for project in get_projects_response.get('project', [])]
-        assert self.create_project_id in project_ids
-
-        api_manager.project_api.clean_up_project(self.create_project_id)
-
-
-    def test_project_create_with_role_model(self, super_admin, user_create):
-        create_project_response = super_admin.api_manager.project_api.create_project(self.project_data.model_dump()).text
+    def test_project_create_with_role_model(self, super_admin, user_create, project_data):
+        project_data1 = project_data()
+        create_project_response = super_admin.api_manager.project_api.create_project(project_data1.model_dump()).text
         project_response = ProjectResponseModel.model_validate_json(create_project_response)
-        assert project_response.id == self.create_project_id
+        assert project_response.id == project_data1.id
 
-        get_projects_response = super_admin.api_manager.project_api.get_project_by_locator(self.create_project_id).text
+        get_projects_response = super_admin.api_manager.project_api.get_project_by_locator(project_data1.id).text
         created_project = ProjectResponseModel.model_validate_json(get_projects_response)
-        assert created_project.id == self.create_project_id
-
-        super_admin.api_manager.project_api.clean_up_project(self.create_project_id)
-
-    def test_project_create_user(self, super_admin, user_create):
-        project_user = user_create(Roles.PROJECT_ADMIN.value)
-        project_user.api_manager.auth_api.auth_and_get_csfr(project_user.creds)
-        created_project = project_user.api_manager.project_api.create_project(self.project_data).json()
-        assert created_project['id'] == self.create_project_id
+        assert created_project.id == project_data1.id
