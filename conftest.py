@@ -24,10 +24,10 @@ def user_session():
 
 # создаем объект юзера (SuperAdmin) с использование учетных данных из SuperAdminCreds
 @pytest.fixture
-def super_admin(user_session, super_admin_creds):
+def super_admin(user_session):
     new_session = user_session()
     super_admin = User(SuperAdminCreds.USERNAME, SuperAdminCreds.PASSWORD, new_session, ['SUPER_ADMIN', 'g'])
-    super_admin.api_manager.auth_api.auth_and_get_csfr(super_admin_creds)
+    super_admin.api_manager.auth_api.auth_and_get_csfr(super_admin.creds)
     return super_admin
 
 
