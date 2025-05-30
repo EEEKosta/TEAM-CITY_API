@@ -1,3 +1,4 @@
+from api.api_manager import ApiManager
 from enums.roles import Roles
 
 
@@ -12,13 +13,13 @@ class Role:
 
 # добавить на вход email
 class User:
-    def __init__(self, username: str, password: str, session: object, roles: list, **kwargs):
+    def __init__(self, username: str, password: str, session: ApiManager, roles: list, **kwargs):
         self.username = username
         self.password = password
         self.email = None
         self.roles = roles
         self.groups = None
-        self.api_object = session  # api_object экземпляр ApiManager
+        self.api_manager = session  # api_object экземпляр ApiManager
 
     @property  # превращает метод класса в атрибут только для чтения
     def creds(self):

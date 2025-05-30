@@ -27,7 +27,7 @@ def user_session():
 def super_admin(user_session, super_admin_creds):
     new_session = user_session()
     super_admin = User(SuperAdminCreds.USERNAME, SuperAdminCreds.PASSWORD, new_session, ['SUPER_ADMIN', 'g'])
-    super_admin.api_object.auth_api.auth_and_get_csfr(super_admin_creds)
+    super_admin.api_manager.auth_api.auth_and_get_csfr(super_admin_creds)
     return super_admin
 
 
@@ -43,7 +43,7 @@ def user_create(user_session, super_admin):
 
     def  _user_create(role):
         user_data = UserData.create_user_data(role, scope='g')
-        super_admin.api_object.user_api.create_user(user_data)
+        super_admin.api_manager.user_api.create_user(user_data)
         new_session = user_session()
         created_user_pool.append(user_data['username'])
         return User(user_data['username'], user_data['password'], new_session, [Role(role)])
@@ -51,4 +51,4 @@ def user_create(user_session, super_admin):
     yield _user_create
 
     for username in created_user_pool:
-        super_admin.api_object.user_api.delete_user(username)
+        super_admin.api_manager.user_api.delete_user(username)
