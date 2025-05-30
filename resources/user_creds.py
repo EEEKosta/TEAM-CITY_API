@@ -5,5 +5,6 @@ load_dotenv()
 
 
 class SuperAdminCreds:
-    USERNAME = ''
-    PASSWORD = os.getenv('SUPER_ADMIN_TOKEN')
+    USERNAME = 'admin'
+    #PASSWORD = os.getenv('SUPER_ADMIN_TOKEN')
+    PASSWORD = 'admin'

@@ -9,6 +9,7 @@ class Role:
         self.scope = scope
         self.href = href
 
+
 # добавить на вход email
 class User:
     def __init__(self, username: str, password: str, session: object, roles: list, **kwargs):
@@ -17,9 +18,8 @@ class User:
         self.email = None
         self.roles = roles
         self.groups = None
-        self.api_object = session # api_object экземпляр ApiManager
+        self.api_object = session  # api_object экземпляр ApiManager
 
-
-    @property # превращает метод класса в атрибут только для чтения
+    @property  # превращает метод класса в атрибут только для чтения
     def creds(self):
         return self.username, self.password
