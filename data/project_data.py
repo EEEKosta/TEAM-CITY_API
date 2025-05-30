@@ -64,4 +64,4 @@ class ProjectResponseModel(BaseModel):
 
 
     class Config:
-        extra = 'allows'
+        extra = 'allow'
